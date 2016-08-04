@@ -25,7 +25,7 @@ Either.prototype.swap = function() {
 };
 Either.prototype.bimap = function(f, g) {
     return this.fold(
-        (l) => Either.Left(f(l)), 
+        (l) => Either.Left(f(l)),
         (r) => Either.Right(g(r))
     );
 };
@@ -69,10 +69,12 @@ Either.EitherT = (M) => {
         return EitherT(M[of](Either.Right(x)));
     };
     EitherT.prototype.swap = function() {
-        return this.fold(
-            (l) => Either.Right(l),
-            (r) => Either.Left(r)
-        );
+      return EitherT[of](
+               this.fold(
+                 (l) => Either.Right(l),
+                 (r) => Either.Left(r)
+               )
+      );
     };
     EitherT.prototype.bimap = function(f, g) {
         return this.fold(
