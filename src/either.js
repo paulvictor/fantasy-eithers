@@ -11,6 +11,7 @@ const Either = taggedSum({
 
 // Methods
 Either.prototype.fold = function(f, g) {
+  console.log(this)
     return this.cata({
         Left: f,
         Right: g
@@ -69,7 +70,7 @@ Either.EitherT = (M) => {
         return EitherT(M[of](Either.Right(x)));
     };
     EitherT.prototype.swap = function() {
-      return EitherT[of](
+      return EitherT(
                this.fold(
                  (l) => Either.Right(l),
                  (r) => Either.Left(r)
